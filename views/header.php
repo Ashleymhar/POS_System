@@ -9,7 +9,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 <head>
     <meta charset="UTF-8">
     <title>POS System</title>
-    <link rel="stylesheet" href="/POS_System/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <header class="pos-header">

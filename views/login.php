@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>POS System Login</title>
-    <link rel="stylesheet" href="/POS_System/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
