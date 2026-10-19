@@ -18,6 +18,7 @@ class Database {
             );
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
+            error_log('Database connection failed: ' . $e->getMessage());
             die("ERROR: Unable to connect to the database. Please contact the system administrator.");
         }
         return $this->conn;
