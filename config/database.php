@@ -36,8 +36,15 @@ class Database {
                     throw new RuntimeException('The configured database CA certificate file is not readable.');
                 }
 
-                $options[PDO::MYSQL_ATTR_SSL_CA] = $caFile;
-                $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
+                $sslCaAttribute = defined('Pdo\\Mysql::ATTR_SSL_CA')
+                    ? constant('Pdo\\Mysql::ATTR_SSL_CA')
+                    : PDO::MYSQL_ATTR_SSL_CA;
+                $verifyServerAttribute = defined('Pdo\\Mysql::ATTR_SSL_VERIFY_SERVER_CERT')
+                    ? constant('Pdo\\Mysql::ATTR_SSL_VERIFY_SERVER_CERT')
+                    : PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT;
+
+                $options[$sslCaAttribute] = $caFile;
+                $options[$verifyServerAttribute] = true;
             }
 
             $this->conn = new PDO(
