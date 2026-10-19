@@ -11,14 +11,46 @@ class Database {
         $password = getenv('DB_PASSWORD') ?: '';
 
         try {
+            $options = [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            ];
+
+            if (!in_array(strtolower($host), ['localhost', '127.0.0.1', '::1'], true)) {
+                $configuredCaFile = getenv('DB_SSL_CA');
+                $caFiles = $configuredCaFile
+                    ? [$configuredCaFile]
+                    : [
+                        '/etc/ssl/certs/ca-certificates.crt',
+                        '/etc/ssl/cert.pem',
+                        '/etc/pki/tls/certs/ca-bundle.crt',
+                    ];
+                $caFile = null;
+                foreach ($caFiles as $candidate) {
+                    if (is_readable($candidate)) {
+                        $caFile = $candidate;
+                        break;
+                    }
+                }
+
+                if ($caFile === null) {
+                    throw new RuntimeException('The configured database CA certificate file is not readable.');
+                }
+
+                $options[PDO::MYSQL_ATTR_SSL_CA] = $caFile;
+                $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
+            }
+
             $this->conn = new PDO(
                 "mysql:host={$host};port={$port};dbname={$db_name};charset=utf8mb4",
                 $username,
-                $password
+                $password,
+                $options
             );
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             error_log('Database connection failed: ' . $e->getMessage());
+            die("ERROR: Unable to connect to the database. Please contact the system administrator.");
+        } catch (RuntimeException $e) {
+            error_log('Database TLS configuration failed: ' . $e->getMessage());
             die("ERROR: Unable to connect to the database. Please contact the system administrator.");
         }
         return $this->conn;
