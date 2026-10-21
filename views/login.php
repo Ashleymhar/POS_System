@@ -38,7 +38,7 @@
         <p style="margin:0.5rem 0 0;">
             <strong>Cashier</strong><br>
             Username: cashier1<br>
-            Password: temp123
+            Password: cashier123
         </p>
     </section>
 </div>
