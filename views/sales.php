@@ -1,10 +1,9 @@
 <?php
-session_start();
+require_once '../config/role_check.php';
+requireRole(['Administrator', 'Manager', 'Cashier']);
 require_once '../models/Product.php';
 require_once '../models/Customer.php';
 include 'header.php';
-require_once '../config/role_check.php';
-requireRole(['Administrator', 'Manager', 'Cashier']);
 include 'navbar.php';
 
 if (!isset($_SESSION['cart'])) {

@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS pos_system;
+
 USE pos_system;
 
 SET FOREIGN_KEY_CHECKS = 0;

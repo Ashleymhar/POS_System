@@ -1,8 +1,8 @@
 <?php
-require_once '../config/database.php';
-include 'header.php';
 require_once '../config/role_check.php';
 requireRole(['Administrator']);
+require_once '../config/database.php';
+include 'header.php';
 include 'navbar.php';
 ?>
 <main class="pos-content">

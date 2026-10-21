@@ -1,8 +1,8 @@
 <?php
-require_once '../models/Sale.php';
-include '../views/header.php';
 require_once '../config/role_check.php';
 requireRole(['Administrator', 'Manager']);
+require_once '../models/Sale.php';
+include '../views/header.php';
 include '../views/navbar.php';
 
 $saleModel = new Sale();
