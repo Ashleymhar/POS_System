@@ -1,4 +1,3 @@
-   <?php
-   header('Location: sales_reports.php');
-   exit;
-   ?>
+<?php
+header('Location: sales_reports.php');
+exit;
