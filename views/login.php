@@ -28,6 +28,19 @@
         </div>
     </form>
     <hr>
+    <section aria-label="Demo login credentials" style="text-align:left; font-size:0.9rem;">
+        <strong>Demo Login Credentials</strong>
+        <p style="margin:0.5rem 0;">
+            <strong>Admin</strong><br>
+            Username: admin1<br>
+            Password: admin123
+        </p>
+        <p style="margin:0.5rem 0 0;">
+            <strong>Cashier</strong><br>
+            Username: cashier1<br>
+            Password: temp123
+        </p>
+    </section>
 </div>
 
 </body>
