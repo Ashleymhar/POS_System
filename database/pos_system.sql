@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS customers;
 DROP TABLE IF EXISTS suppliers;
 DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS courses;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
@@ -27,6 +28,13 @@ CREATE TABLE categories (
     category_name VARCHAR(100) NOT NULL
 );
 
+CREATE TABLE courses (
+    course_id INT AUTO_INCREMENT PRIMARY KEY,
+    course_name VARCHAR(120) NOT NULL UNIQUE,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE suppliers (
     supplier_id INT AUTO_INCREMENT PRIMARY KEY,
     supplier_name VARCHAR(100) NOT NULL,
@@ -41,7 +49,9 @@ CREATE TABLE customers (
     customer_name VARCHAR(100) NOT NULL,
     contact_number VARCHAR(20),
     email VARCHAR(100),
-    address VARCHAR(255)
+    address VARCHAR(255),
+    course_id INT NULL,
+    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE SET NULL
 );
 
 CREATE TABLE products (

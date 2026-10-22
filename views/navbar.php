@@ -6,6 +6,7 @@
         <li><a href="/views/sales.php">Sales</a></li>
         <li><a href="/reports/index.php">Reports</a></li>
         <li><a href="/views/users.php">Users</a></li>
+        <li><a href="/views/courses.php">Courses</a></li>
         <li style="margin-left:auto;">
             Logged in as: <strong><?= htmlspecialchars($_SESSION['full_name'] ?? '') ?></strong>
             | <a href="/controllers/AuthController.php?action=logout">Logout</a>

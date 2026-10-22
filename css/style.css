@@ -96,7 +96,8 @@ body {
 }
 
 .pos-content input,
-.pos-content select {
+.pos-content select,
+.pos-content textarea {
 	border: 1px solid var(--border);
 	border-radius: 4px;
 	color: var(--ink);
@@ -107,7 +108,8 @@ body {
 }
 
 .pos-content input:focus,
-.pos-content select:focus {
+.pos-content select:focus,
+.pos-content textarea:focus {
 	border-color: var(--green-700);
 	outline: 2px solid var(--green-100);
 }
@@ -162,7 +164,7 @@ body {
 	.pos-navbar ul { padding: 0.5rem 1rem; }
 	.pos-content { padding: 1.25rem 1rem; overflow-x: auto; }
 	.pos-content form label { display: block; margin-bottom: 0; }
-	.pos-content input, .pos-content select { width: min(100%, 22rem); }
+	.pos-content input, .pos-content select, .pos-content textarea { width: min(100%, 22rem); }
 }
 
 .pos-content h2 {
