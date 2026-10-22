@@ -24,11 +24,20 @@ class Course {
             AND TABLE_NAME = 'customers'
             AND COLUMN_NAME = 'course_id'");
         if ((int) $stmt->fetchColumn() === 0) {
+            $conn->exec("ALTER TABLE customers ADD COLUMN course_id INT NULL");
+        }
+
+        $stmt = $conn->query("SELECT COUNT(*) FROM information_schema.KEY_COLUMN_USAGE
+            WHERE TABLE_SCHEMA = DATABASE()
+            AND TABLE_NAME = 'customers'
+            AND COLUMN_NAME = 'course_id'
+            AND REFERENCED_TABLE_NAME = 'courses'
+            AND REFERENCED_COLUMN_NAME = 'course_id'");
+        if ((int) $stmt->fetchColumn() === 0) {
             $conn->exec("ALTER TABLE customers
-                ADD COLUMN course_id INT NULL,
                 ADD CONSTRAINT fk_customers_course
-                    FOREIGN KEY (course_id) REFERENCES courses(course_id)
-                    ON DELETE SET NULL");
+                FOREIGN KEY (course_id) REFERENCES courses(course_id)
+                ON DELETE SET NULL");
         }
     }
 
