@@ -1,28 +1,31 @@
-   <?php
-   require_once 'database.php';
+<?php
+require_once __DIR__ . '/database.php';
 
-   $database = new Database();
-   $conn = $database->connect();
+$database = new Database();
+$conn = $database->connect();
 
-   $accounts = [
-       ['manager1', 'manager123', 'Store Manager', 'Manager'],
-       ['inventory1', 'inventory123', 'Inventory Staff', 'Inventory Staff']
-   ];
+$accounts = [
+    ['manager1', 'manager123', 'Store Manager', 'Manager'],
+    ['inventory1', 'inventory123', 'Inventory Staff', 'Inventory Staff']
+];
 
-   $stmt = $conn->prepare("INSERT INTO users (username, password, full_name, role) VALUES (:username, :password, :full_name, :role)");
+$check = $conn->prepare("SELECT COUNT(*) FROM users WHERE username = :username");
+$insert = $conn->prepare("INSERT INTO users (username, password, full_name, role) VALUES (:username, :password, :full_name, :role)");
+$update = $conn->prepare("UPDATE users SET password = :password, full_name = :full_name, role = :role WHERE username = :username");
 
-   foreach ($accounts as $a) {
-       $check = $conn->prepare("SELECT COUNT(*) FROM users WHERE username = :username");
-       $check->bindValue(':username', $a[0]);
-       $check->execute();
-       if ($check->fetchColumn() > 0) {
-           echo "Skipped (already exists): " . $a[0] . "<br>";
-           continue;
-       }
-       $stmt->bindValue(':username', $a[0]);
-       $stmt->bindValue(':password', password_hash($a[1], PASSWORD_DEFAULT));
-       $stmt->bindValue(':full_name', $a[2]);
-       $stmt->bindValue(':role', $a[3]);
-       $stmt->execute();
-       echo "Created: " . $a[0] . " (" . $a[3] . ")<br>";
-   }
+foreach ($accounts as $account) {
+    [$username, $plainPassword, $fullName, $role] = $account;
+    $password = password_hash($plainPassword, PASSWORD_DEFAULT);
+
+    $check->bindValue(':username', $username);
+    $check->execute();
+
+    $statement = $check->fetchColumn() > 0 ? $update : $insert;
+    $statement->bindValue(':username', $username);
+    $statement->bindValue(':password', $password);
+    $statement->bindValue(':full_name', $fullName);
+    $statement->bindValue(':role', $role);
+    $statement->execute();
+
+    echo htmlspecialchars($username) . ' (' . htmlspecialchars($role) . ') synchronized.<br>';
+}
