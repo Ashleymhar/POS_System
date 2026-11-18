@@ -40,6 +40,16 @@
             Username: cashier1<br>
             Password: cashier123
         </p>
+        <p style="margin:0.5rem 0 0;">
+            <strong>Manager</strong><br>
+            Username: manager1<br>
+            Password: manager123
+        </p>
+        <p style="margin:0.5rem 0 0;">
+            <strong>Inventory Staff</strong><br>
+            Username: inventory1<br>
+            Password: inventory123
+        </p>
     </section>
 </div>
 
