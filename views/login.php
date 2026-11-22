@@ -7,6 +7,7 @@ require_once __DIR__ . '/../config/app_url.php';
 <head>
     <meta charset="UTF-8">
     <title>POS System Login</title>
+    <link rel="icon" type="image/svg+xml" href="<?= htmlspecialchars(appUrl('assets/pos-favicon.svg?v=1'), ENT_QUOTES, 'UTF-8') ?>">
     <link rel="stylesheet" href="<?= htmlspecialchars(appUrl('css/style.css?v=2'), ENT_QUOTES, 'UTF-8') ?>">
 </head>
 <body class="login-page">
