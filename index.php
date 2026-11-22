@@ -22,62 +22,87 @@ foreach ($last7Days as $day) {
 }
 ?>
 
-<main class="pos-content">
-    <h2>POS Dashboard</h2>
+<main class="pos-content dashboard-content">
+    <div class="dashboard-heading">
+        <div>
+            <p class="eyebrow">STORE OVERVIEW</p>
+            <h2>Dashboard</h2>
+        </div>
+        <span class="dashboard-period"><span class="pos-status-dot"></span> Today</span>
+    </div>
 
-    <table border="1" cellpadding="10" style="width:100%; text-align:center;">
-        <tr>
-            <td>
-                <strong>Today's Sales</strong><br>
-                <span style="font-size:1.5em;">₱<?= number_format($today['total_sales'], 2) ?></span>
-            </td>
-            <td>
-                <strong>Transactions</strong><br>
-                <span style="font-size:1.5em;"><?= $today['total_transactions'] ?></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <strong>Products Sold</strong><br>
-                <span style="font-size:1.5em;"><?= $productsSoldToday ?></span>
-            </td>
-            <td>
-                <strong>Low Stock</strong><br>
-                <span style="font-size:1.5em; color:<?= $lowStockCount > 0 ? '#b00000' : 'inherit' ?>;"><?= $lowStockCount ?></span>
-            </td>
-        </tr>
-    </table>
+    <section class="dashboard-metrics" aria-label="Today's store metrics">
+        <article class="metric-card metric-card-primary">
+            <span class="metric-label">Today's Sales</span>
+            <strong class="metric-value">₱<?= number_format($today['total_sales'], 2) ?></strong>
+            <span class="metric-note">Total sales today</span>
+        </article>
+        <article class="metric-card">
+            <span class="metric-label">Transactions</span>
+            <strong class="metric-value"><?= number_format($today['total_transactions']) ?></strong>
+            <span class="metric-note">Completed today</span>
+        </article>
+        <article class="metric-card">
+            <span class="metric-label">Products Sold</span>
+            <strong class="metric-value"><?= number_format($productsSoldToday) ?></strong>
+            <span class="metric-note">Units sold today</span>
+        </article>
+        <article class="metric-card">
+            <span class="metric-label">Low Stock</span>
+            <strong class="metric-value<?= $lowStockCount > 0 ? ' metric-warning' : '' ?>"><?= number_format($lowStockCount) ?></strong>
+            <span class="metric-note">Products to restock</span>
+        </article>
+    </section>
 
-    <hr>
-
-    <h3>Daily Sales Chart (Last 7 Days)</h3>
-    <div style="display:flex; align-items:flex-end; gap:12px; height:180px; border-bottom:2px solid #333; padding:0 10px;">
+    <section class="dashboard-lower">
+        <article class="dashboard-panel sales-panel">
+            <div class="panel-heading">
+                <div>
+                    <p class="eyebrow">SALES ACTIVITY</p>
+                    <h3>Daily sales</h3>
+                </div>
+                <span class="panel-caption">Last 7 days</span>
+            </div>
+            <div class="sales-chart">
         <?php foreach ($last7Days as $day): ?>
         <?php
             $barHeight = $maxSales > 0 ? ($day['total_sales'] / $maxSales) * 150 : 0;
         ?>
-        <div style="display:flex; flex-direction:column; align-items:center;">
-            <div style="font-size:0.8em;">₱<?= number_format($day['total_sales'], 0) ?></div>
-            <div style="width:40px; height:<?= $barHeight ?>px; background:#1F3864;"></div>
-            <div style="font-size:0.8em;"><?= date('M j', strtotime($day['sale_day'])) ?></div>
+        <div class="chart-column">
+            <span class="chart-value">₱<?= number_format($day['total_sales'], 0) ?></span>
+            <div class="chart-bar-track">
+                <div class="chart-bar" style="height:<?= $barHeight ?>px;"></div>
+            </div>
+            <span class="chart-label"><?= date('M j', strtotime($day['sale_day'])) ?></span>
         </div>
         <?php endforeach; ?>
         <?php if (empty($last7Days)): ?>
-        <p>No sales in the last 7 days.</p>
+        <p class="chart-empty">No sales in the last 7 days.</p>
         <?php endif; ?>
-    </div>
+            </div>
+        </article>
 
-    <hr>
-
-    <h3>Top Selling Products</h3>
-    <ol>
-        <?php foreach ($topSelling as $p): ?>
-        <li><?= htmlspecialchars($p['product_name']) ?> (<?= $p['total_qty'] ?> sold)</li>
-        <?php endforeach; ?>
-        <?php if (empty($topSelling)): ?>
-        <li>No sales data yet.</li>
-        <?php endif; ?>
-    </ol>
+        <article class="dashboard-panel top-products-panel">
+            <div class="panel-heading">
+                <div>
+                    <p class="eyebrow">BEST PERFORMERS</p>
+                    <h3>Top selling products</h3>
+                </div>
+            </div>
+            <ol class="top-products-list">
+                <?php foreach ($topSelling as $index => $p): ?>
+                <li>
+                    <span class="product-rank"><?= $index + 1 ?></span>
+                    <span class="product-name"><?= htmlspecialchars($p['product_name']) ?></span>
+                    <strong class="product-quantity"><?= number_format($p['total_qty']) ?> sold</strong>
+                </li>
+                <?php endforeach; ?>
+                <?php if (empty($topSelling)): ?>
+                <li class="empty-products">No sales data yet.</li>
+                <?php endif; ?>
+            </ol>
+        </article>
+    </section>
 </main>
 
 <?php include 'views/footer.php'; ?>

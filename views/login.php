@@ -7,11 +7,11 @@ require_once __DIR__ . '/../config/app_url.php';
 <head>
     <meta charset="UTF-8">
     <title>POS System Login</title>
-    <link rel="stylesheet" href="<?= htmlspecialchars(appUrl('css/style.css'), ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="stylesheet" href="<?= htmlspecialchars(appUrl('css/style.css?v=2'), ENT_QUOTES, 'UTF-8') ?>">
 </head>
-<body>
+<body class="login-page">
 
-<div style="max-width:350px; margin:100px auto; border:2px solid #1F3864; padding:2rem; text-align:center; font-family: monospace;">
+<div class="login-card">
     <h2>POS SYSTEM LOGIN</h2>
     <hr>
 
@@ -19,7 +19,7 @@ require_once __DIR__ . '/../config/app_url.php';
         <p style="color:red;"><?= htmlspecialchars($_GET['error']) ?></p>
     <?php endif; ?>
 
-    <form action="../controllers/AuthController.php?action=login" method="POST" style="text-align:left;">
+    <form action="../controllers/AuthController.php?action=login" method="POST">
         <label>Username:</label><br>
         <input type="text" name="username" required style="width:100%; margin-bottom:10px;"><br>
 
