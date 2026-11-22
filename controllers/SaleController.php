@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once __DIR__ . '/../config/role_check.php';
+requireRole(['Administrator', 'Manager', 'Cashier']);
 require_once __DIR__ . '/../models/Sale.php';
 
 if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {

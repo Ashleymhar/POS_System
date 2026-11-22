@@ -6,6 +6,7 @@ $conn = $database->connect();
 
 $accounts = [
     ['manager1', 'manager123', 'Store Manager', 'Manager'],
+    ['cashier1', 'cashier123', 'Cashier', 'Cashier'],
     ['inventory1', 'inventory123', 'Inventory Staff', 'Inventory Staff']
 ];
 

@@ -1,6 +1,6 @@
 <?php
 require_once '../config/role_check.php';
-requireRole(['Administrator', 'Manager', 'Cashier']);
+requireRole(['Administrator']);
 require_once '../models/Customer.php';
 require_once '../models/Course.php';
 include 'header.php';

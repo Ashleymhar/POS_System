@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../config/role_check.php';
+requireRole(['Administrator', 'Manager', 'Inventory Staff']);
 require_once __DIR__ . '/../models/Product.php';
 
 $productModel = new Product();

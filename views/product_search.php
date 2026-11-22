@@ -1,4 +1,6 @@
 <?php
+require_once '../config/role_check.php';
+requireRole(['Administrator', 'Manager', 'Inventory Staff']);
 require_once '../models/Product.php';
 include 'header.php';
 include 'navbar.php';

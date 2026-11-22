@@ -1,4 +1,6 @@
 <?php
+require_once 'config/role_check.php';
+requireRole(['Administrator', 'Manager', 'Cashier', 'Inventory Staff']);
 require_once 'config/database.php';
 require_once 'models/Sale.php';
 require_once 'models/Product.php';

@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../config/role_check.php';
+requireRole(['Administrator']);
 require_once __DIR__ . '/../models/Customer.php';
 
 $customerModel = new Customer();

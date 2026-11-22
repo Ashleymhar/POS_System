@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../config/role_check.php';
+requireRole(['Administrator', 'Manager', 'Cashier']);
 require_once __DIR__ . '/../models/Payment.php';
 require_once __DIR__ . '/../models/Sale.php';
 
